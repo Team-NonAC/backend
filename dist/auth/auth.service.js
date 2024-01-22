@@ -36,6 +36,11 @@ let AuthService = class AuthService {
                     where: {
                         email,
                     },
+                    select: {
+                        id: true,
+                        name: true,
+                        role: true,
+                    }
                 });
             }
             const otp = (0, crypto_1.randomInt)(100000, 1000000);

@@ -14,6 +14,8 @@ const prisma_module_1 = require("./prisma/prisma.module");
 const mail_module_1 = require("./mail/mail.module");
 const config_1 = require("@nestjs/config");
 const config_2 = require("@nestjs/config");
+const users_module_1 = require("./users/users.module");
+const jobs_module_1 = require("./jobs/jobs.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -41,6 +43,8 @@ AppModule = __decorate([
             }),
             prisma_module_1.PrismaModule,
             mail_module_1.MailModule,
+            users_module_1.UsersModule,
+            jobs_module_1.JobsModule,
         ],
     })
 ], AppModule);

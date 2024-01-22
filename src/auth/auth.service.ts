@@ -31,6 +31,11 @@ export class AuthService {
           where: {
             email,
           },
+          select: {
+            id: true,
+            name: true,
+            role: true,
+          }
         });
       }
       const otp = randomInt(100000, 1000000); // 6 digit otp

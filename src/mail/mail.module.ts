@@ -18,7 +18,7 @@ import { ConfigService } from '@nestjs/config';
           },
         },
         defaults: {
-          from: '"Maintenance App" <tomoyoko959@gmail.com>',
+          from: '"Akash" <tomoyoko959@gmail.com>',
         },
         template: {
           dir: 'dist/mail/templates',
