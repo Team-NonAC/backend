@@ -18,7 +18,8 @@ enum UserRole {
 
 model User {
   id                Int      @id @default(autoincrement())
-  name              String
+  email             String   @unique
+  name              String   @unique
   pwd               pwd[]    @relation("userToPwdCard")
   role              UserRole
   createdAt         DateTime @default(now())
