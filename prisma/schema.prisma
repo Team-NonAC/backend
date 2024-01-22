@@ -1,0 +1,62 @@
+// Prisma schema file
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Define enum for user roles
+enum UserRole {
+  ADMIN
+  USER
+  // Add more roles as needed
+}
+
+model User {
+  id                Int      @id @default(autoincrement())
+  name              String
+  pwd               pwd[]    @relation("userToPwdCard")
+  role              UserRole
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  jobs_applications Jobs[]   @relation("userToJobsApplications")
+  courses           Course[] @relation("userToCourses")
+  domains           Domain[] @relation("userToDomains")
+}
+
+model Domain {
+  id                Int     @id @default(autoincrement())
+  name              String
+  link              String?
+  users             User[]  @relation("userToDomains")
+  jobs_applications Jobs[]  @relation("domainToJobsApplications")
+}
+
+model Course {
+  id    Int     @id @default(autoincrement())
+  name  String
+  link  String?
+  users User[]  @relation("userToCourses")
+}
+
+model Jobs {
+  id     Int      @id @default(autoincrement())
+  name   String
+  link   String?
+  users  User[]   @relation("userToJobsApplications")
+  domain Domain[] @relation("domainToJobsApplications")
+
+  pwdId Int?
+  pwd   pwd? @relation(fields: [pwdId], references: [id])
+}
+
+model pwd {
+  id    Int    @id @default(autoincrement())
+  name  String
+  users User[] @relation("userToPwdCard")
+  Jobs  Jobs[]
+}
