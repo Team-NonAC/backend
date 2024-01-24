@@ -87,6 +87,10 @@ let UsersService = class UsersService {
                             id: user.id
                         }
                     }
+                },
+                include: {
+                    domain: true,
+                    pwd: true
                 }
             });
             const jobsWhereDomainMatch = await this.prismaService.jobs.findMany({
@@ -108,10 +112,33 @@ let UsersService = class UsersService {
                     }
                 }
             });
+            const userDetails = {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                createdAt: user.createdAt,
+                updatedAt: user.updatedAt,
+                pwd: user.pwd.map(pwd => pwd.name),
+                domains: user.domains.map(domain => domain.name)
+            };
+            const jobsWhereAppliedDetails = jobsWhereApplied.map(job => {
+                return {
+                    id: job.id,
+                    name: job.name,
+                    domain: job.domain.map(domain => domain.name)
+                };
+            });
+            const jobsWhereDomainMatchDetails = jobsWhereDomainMatch.map(job => {
+                return {
+                    id: job.id,
+                    name: job.name,
+                    domain: job.domain.map(domain => domain.name)
+                };
+            });
             return {
-                user,
-                jobsWhereApplied,
-                jobsWhereDomainMatch
+                userDetails,
+                jobsWhereAppliedDetails,
+                jobsWhereDomainMatchDetails
             };
         }
         catch (error) {

@@ -5,7 +5,12 @@ export declare class JobsController {
     private readonly jobsService;
     constructor(jobsService: JobsService);
     create(createJobDto: CreateJobDto): string;
-    findAll(): string;
+    findAll(): import(".prisma/client").Prisma.PrismaPromise<(import("@prisma/client/runtime").GetResult<{
+        id: number;
+        name: string;
+        link: string;
+        pwdId: number;
+    }, unknown, never> & {})[]>;
     findOne(id: string): string;
     update(id: string, updateJobDto: UpdateJobDto): string;
     remove(id: string): string;

@@ -1,9 +1,7 @@
 import { ConflictException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma } from '@prisma/client';
 import { CustomError } from './interface';
-import { json } from 'stream/consumers';
 
 @Injectable()
 export class UsersService {
@@ -103,6 +101,10 @@ export class UsersService {
               id: user.id
             }
           }
+        },
+        include: {
+          domain: true,
+          pwd: true
         }
       })
 
@@ -126,12 +128,36 @@ export class UsersService {
         }
       });
 
+      const userDetails = {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+        pwd: user.pwd.map(pwd => pwd.name),
+        domains: user.domains.map(domain => domain.name)
+      }
+      const jobsWhereAppliedDetails = jobsWhereApplied.map(job => {
+        return {
+          id: job.id,
+          name: job.name,
+          domain: job.domain.map(domain => domain.name)
 
+        }
+      })
+
+      const jobsWhereDomainMatchDetails = jobsWhereDomainMatch.map(job => {
+        return {
+          id: job.id,
+          name: job.name,
+          domain: job.domain.map(domain => domain.name)
+        }
+      })
       // need to check where the user has applied 
       return {
-        user,
-        jobsWhereApplied,
-        jobsWhereDomainMatch
+        userDetails,
+        jobsWhereAppliedDetails,
+        jobsWhereDomainMatchDetails
       };
 
     }

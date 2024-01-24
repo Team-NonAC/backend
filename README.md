@@ -1,5 +1,4 @@
-# Retard Portal - Backend
-
+# Aksham Backend
 ## Overview
 
 This is the backend application for [Project Name], a platform designed to address challenges in the job application process, enhance user experience, and introduce innovative features.

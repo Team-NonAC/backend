@@ -28,34 +28,24 @@ export declare class UsersService {
         updatedAt: Date;
     }, never, import("@prisma/client/runtime").DefaultArgs>;
     dashboard(id: number): Promise<{
-        user: {
+        userDetails: {
             id: number;
             name: string;
             email: string;
-            pwd: (import("@prisma/client/runtime").GetResult<{
-                id: number;
-                name: string;
-            }, unknown, never> & {})[];
             createdAt: Date;
             updatedAt: Date;
-            domains: {
-                id: number;
-                name: string;
-            }[];
+            pwd: string[];
+            domains: string[];
         };
-        jobsWhereApplied: (import("@prisma/client/runtime").GetResult<{
+        jobsWhereAppliedDetails: {
             id: number;
             name: string;
-            link: string;
-            pwdId: number;
-        }, unknown, never> & {})[];
-        jobsWhereDomainMatch: {
+            domain: string[];
+        }[];
+        jobsWhereDomainMatchDetails: {
             id: number;
             name: string;
-            domain: {
-                id: number;
-                name: string;
-            }[];
+            domain: string[];
         }[];
     }>;
     handleError(error: CustomError): void;

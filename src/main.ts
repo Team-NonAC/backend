@@ -7,7 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
-    .setTitle('Retard Backend')
+    .setTitle('Aksham Backend')
     .setDescription('Backend for the project')
     .setVersion('1.0')
     .addBearerAuth()
